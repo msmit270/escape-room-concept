@@ -1,56 +1,57 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.awt.event.ItemEvent;
 import java.util.*;
-import java.util.List;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.util.*;
 
-public class StartGame {
-    private static Menus menus;
-    private static JFrame mainWindow = null;
-    private static JPanel gameView = null;
+/**
+ * a class used to create panels
+ */
+public class GameShow {
 
-    JPanel background;
+    private GameType chosenGameType;
 
-    JPanel titleArea;
-    JLabel title;
+    private final static String clockIconPath = "./images/clock.png";
+    private static final ImageIcon clockIcon = new ImageIcon(clockIconPath);
+    private final static String wallpaperIconPath = "./images/vin-wall-paper.jpg";
+    private static final ImageIcon wallpaperIcon = new ImageIcon(wallpaperIconPath);
+    private final static String telescopeIconPath = "./images/telescope.png";
+    private static final ImageIcon telescopeIcon = new ImageIcon(telescopeIconPath);
+    private final static String bookCaseIconPath = "./images/book-shelf.png";
+    private static final ImageIcon bookCaseIcon = new ImageIcon(bookCaseIconPath);
 
-    JPanel gameContainer;
-    JPanel gameArea;
-    JPanel gameSelect;
-    JLabel gameSelectInstructions;
-    JPanel guessContainer;
+    public JPanel gameContainer;
 
-    JButton wordScramble;
-    JButton memoryGame;
-    JButton guessingGame;
+    public JPanel background;
+
+    public JPanel titleArea;
+    public JLabel title;
+
+    public JPanel gameArea;
+    public JPanel gameSelect;
+    public JLabel gameSelectInstructions;
+    public JPanel guessContainer;
+
+    public JButton wordScramble;
+    public JButton memoryGame;
+    public JButton guessingGame;
 
     /**
-     * main method - initialises and creates main JFrame
+     * generates the main selection window
      * 
-     * @param args NA
+     * @return the described JPanel
      */
-    public static void main(String[] args) {
-        mainWindow = new JFrame();
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setMinimumSize(new Dimension(800, 500));
-        gameView = generateGameView();
-        mainWindow.setContentPane(gameView);
-        mainWindow.pack();
-        mainWindow.setLocationRelativeTo(null);
-        mainWindow.setVisible(true);
-    }
-
-    /**
-     * method to generate the main search view of the app, by using the menus object
-     * 
-     * @return a JPanel representing the main search view
-     */
-    public static JPanel generateGameView() {
+    public static void main(String args) {
 
         JPanel background;
 
@@ -61,7 +62,6 @@ public class StartGame {
         JPanel gameArea;
         JPanel gameSelect;
         JLabel gameSelectInstructions;
-        JPanel guessContainer;
 
         JButton wordScramble;
         JButton memoryGame;
@@ -103,8 +103,8 @@ public class StartGame {
 
         wordScramble = new JButton("Word Scramble");
         wordScramble.setPreferredSize(new Dimension(100, 50));
-        // wordScramble.addActionListener((evt) -> sendCommand(new
-        // JsonObject().put("command", "wordScramble")));
+        // wordScramble.addActionListener((evt) ->
+        // sendCommand(new JsonObject().put("command", "wordScramble")));
 
         gameArea.add(wordScramble, BorderLayout.NORTH);
 
@@ -121,11 +121,12 @@ public class StartGame {
         gameContainer.add(gameArea);
 
         background.add(gameContainer);
-
-        return background;
     }
 
     public void startWordScramble(String scrambledWord, int gameId) {
+
+        JPanel guessContainer;
+
         gameContainer.removeAll();
         gameContainer.validate();
         gameContainer.repaint();
@@ -142,7 +143,8 @@ public class StartGame {
 
         JTextField guess = new JTextField(5);
         JButton sendGuess = new JButton("Submit guess");
-        // sendGuess.addActionListener((evt) -> sendCommand(new JsonObject()
+        // sendGuess.addActionListener((evt) ->
+        // sendCommand(new JsonObject()
         // .put("command", "guess")
         // .put("guess", guess.getText())
         // .put("gameId", gameId)));
@@ -156,6 +158,7 @@ public class StartGame {
     }
 
     public void wordScrambleGuess(boolean correct) {
+
         if (!correct) {
             JLabel tryAgain = new JLabel("That's not quite right :( Try again!",
                     SwingConstants.CENTER);
@@ -172,5 +175,4 @@ public class StartGame {
         guessContainer.validate();
         guessContainer.repaint();
     }
-
 }

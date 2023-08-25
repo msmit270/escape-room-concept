@@ -189,12 +189,12 @@ public class Menus {
 
         singlePlayer.addActionListener(e -> {
             chosenGameType = GameType.SINGLE_PLAYER;
-            StartGame.loadView(menus);
+            // StartGame.loadView(menus);
         });
 
         multiPlayer.addActionListener(e -> {
             chosenGameType = GameType.MULTI_PLAYER;
-            StartGame.loadView(menus);
+            // StartGame.loadView(menus);
         });
 
         return gameTypePanel;
